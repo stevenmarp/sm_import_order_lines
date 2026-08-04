@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="import_order_line_wizard_view_form" model="ir.ui.view">
+        <field name="name">sm.import.order.line.wizard.form</field>
+        <field name="model">sm.import.order.line.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Order Lines">
+                <group>
+                    <field name="order_id" invisible="1"/>
+                    <field name="import_file" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="match_by"/>
+                    <field name="has_header"/>
+                    <field name="create_missing" invisible="match_by != 'name'"/>
+                </group>
+                <div class="text-muted">
+                    Columns: Product (reference/barcode/name), Quantity, Unit Price (optional), Description (optional).
+                </div>
+                <footer>
+                    <button name="action_import" string="Import" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_order_line_wizard" model="ir.actions.act_window">
+        <field name="name">Import Lines</field>
+        <field name="res_model">sm.import.order.line.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>
